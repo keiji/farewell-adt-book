@@ -1,8 +1,4 @@
-= ADTからASへの移行
-
-== ADTとは
-
-== Android Studioとは
+= ADTからAndroid Studioへの移行
 
 == ADT to Android Studio
 
@@ -13,7 +9,5 @@
 == Android Studio移行 101
 
 === ファイル構造の違い
-
-=== Java 7を使いたい
 
 == NDKの移行
