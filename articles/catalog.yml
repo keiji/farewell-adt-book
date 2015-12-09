@@ -1,5 +1,6 @@
 PREDEF:
   - preface.re
+  - copyright.re
 CHAPS:
   - adt2as.re
   - ant2gradle.re
