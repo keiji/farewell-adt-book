@@ -2,9 +2,9 @@
 
 このたびはAndroid Studio完全移行ガイドを手にとっていただき、ありがとうございます。
 
-本書は、「ADT」から「Android Studio」に移行する人たちの「道しるべ」になることを目的に執筆しました。
+本書は、「ADT」から「Android Studio」に移行する人たちの「道しるべ」になることを目標に執筆しました。
 
-== ADTとは
+=== ADTとは
 @<kw>{ADT,Android Developer Tools}は、2007年にAndroidが発表されて以来、普及してきたAndroidアプリの@<kw>{IDE, 統合開発環境}です。
 
 //image[adt_icon][単体版のADTには、Eclipseにプラグインをインストールした場合と異なるアイコンが設定されていた][scale=0.15]{
@@ -12,7 +12,7 @@
 
 初期はEclipseに追加するプラグインの形態で配布されていましたが、中期以降は、最初からEclipseに組み込まれた状態で配布されるようになりました。
 
-== Android Studioとは
+=== Android Studioとは
 Android Studioは、2013年のGoogle I/Oで発表された統合開発環境です。
 
 //image[android_studio_icon][Android Studioのアイコンはマテリアルデザインに則っている][scale=0.12]{
@@ -21,7 +21,7 @@ Android Studioは、2013年のGoogle I/Oで発表された統合開発環境で�
 EclipseをベースにしたADTに対して、Android StudioはチェコJetBRAINS社が開発するIntelli J IDEAのオープンソース版（Community Edition）をベースにしています。
 Intelli J IDEAの持つ強力な補完機能に加えて、ADTには無かった機能も新しく開発・追加されています。
 
-== Time to Migrate
+=== Time to Migrate
 2013年にAndroid Studio（プレビュー版）が発表されてからも、ADTは公式のIDEとして配布されていました。
 しかし、2015年にAndroid Studioが1.0になると、「公式」の冠はADTからAndroid Studioに移され、再びADTはプラグインのみの提供となりました。
 
@@ -43,4 +43,4 @@ Intelli J IDEAの持つ強力な補完機能に加えて、ADTには無かった
 
 次に、Antなどのビルドシステムで実現していた処理をAndroid Studio(Gradle)で実現するにはどのようにすればいいか、ユースケース毎に解説します。
 
-本書の内容が、そんな皆さんの道しるべになることを願っています。
+本書の内容が、そんな皆さんの道しるべとしての役割を果たせることを願っています。

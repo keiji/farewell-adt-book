@@ -42,6 +42,7 @@ Project Build Target	@<hd>{adt_project_setting}参照
 ライブラリプロジェクト	@<hd>{adt_project_setting}参照
 依存するプロジェクト	@<hd>{adt_project_setting}参照
 利用ライブラリ	各プロジェクトのlibsフォルダ
+ユニットテストの利用	テストプロジェクト
 NDKの利用	各プロジェクトのjniフォルダ
 //}
 
@@ -61,6 +62,7 @@ Project Build Target	@<hd>{adt_project_setting}参照	Android 6.0 - API Level 23
 ライブラリプロジェクト	@<hd>{adt_project_setting}参照	false
 依存するプロジェクト	@<hd>{adt_project_setting}参照	library
 利用ライブラリ	各プロジェクトのlibsフォルダ	android-support-v4.jar
+ユニットテストの利用	テストプロジェクト	なし
 NDKの利用	各プロジェクトのjniフォルダ	あり
 //}
 
@@ -77,6 +79,7 @@ Project Build Target	@<hd>{adt_project_setting}参照	Android 6.0 - API Level 23
 ライブラリプロジェクト	@<hd>{adt_project_setting}参照	true
 依存するプロジェクト	@<hd>{adt_project_setting}参照	なし
 利用ライブラリ	各プロジェクトのlibsフォルダ	android-support-v4.jar
+ユニットテストの利用	テストプロジェクト	なし
 NDKの利用	各プロジェクトのjniフォルダ	なし
 //}
 
@@ -86,7 +89,7 @@ NDKの利用	各プロジェクトのjniフォルダ	なし
 プロジェクトで右クリックして[Properties]をクリックすると、Project Propertiesが表示されます。
 左側メニューから[Android]を選択すると@<img>{adt_project_setting}の画面になります。
 
-//image[adt_project_setting][Project Build TargetとLibrary][scale=0.30]{
+//image[adt_project_setting][Project Build TargetとLibrary][scale=0.40]{
 //}
 
 必要な情報は、次の通りです。
@@ -121,7 +124,7 @@ NDKの利用	各プロジェクトのjniフォルダ	なし
 [Application name]と[Company domain]をそれぞれ入力します。
 これらを組み合わせたものがデフォルトの[Package name]になります。
 
-//image[as_project_wizard1][][scale=0.25]{
+//image[as_project_wizard1][][scale=0.30]{
 //}
 
 この際[Company domain]は自動的に逆順になります。
@@ -133,12 +136,12 @@ ADTのプロジェクトウィザードのように逆順で入力してしま�
 対応する最低バージョンを選択します。ここで選択したAPI Levelが、minSdkVersionとして設定されます。
 後から書き換えることもできますが、先ほど確認した値「15」に対応するバージョン「Android 4.0.3 (Ice Cream Sandwich)」を選択します。
 
-//image[as_project_wizard2][][scale=0.25]{
+//image[as_project_wizard2][][scale=0.30]{
 //}
 
 最後に追加するActivityの選択画面です。今回はADTからの移行なのでActivityは必要ありません。
 
-//image[as_project_wizard3][][scale=0.25]{
+//image[as_project_wizard3][][scale=0.30]{
 //}
 
 [Add no Activity]を選択して[Finish]をクリックすると、Android Studioはプロジェクトの生成を開始します。
@@ -175,7 +178,7 @@ ADTでは「library」として扱っていたプロジェクトをモジュー�
 まず、モジュールの種類を選択します。ここで追加したいADTの「library」プロジェクトはライブラリなので、[Android Library]を選択します
 （もしADTのプロジェクトがライブラリでなければ、[Phone and Tablet]など他の種類を選択します）。
 
-//image[create_module1][][scale=0.25]{
+//image[create_module1][][scale=0.30]{
 //}
 
 [Application/Library name]を入力@<fn>{capital}します。
@@ -185,7 +188,7 @@ ADTでは「library」として扱っていたプロジェクトをモジュー�
 次に、対応する最低バージョンを選択します。ここで選択したAPI Levelが、minSdkVersionとして設定されます。
 ADTの「library」プロジェクトの値は「8」なので対応するバージョン「Android 2.2 (Froyo)」を選択します。
 
-//image[create_module2][][scale=0.25]{
+//image[create_module2][][scale=0.30]{
 //}
 
 [Finish]をクリックすると、Android Studioはモジュール「library」を生成します。
@@ -217,7 +220,7 @@ dependencies {
 Android Studioは、ビルドシステムに「Gradle」を採用しています。
 「build.gradle」はGradleのビルド設定をまとめたファイル（ビルドファイル）です。
 
-//image[gradlephant][Gradleのロゴ - Gradlephant][scale=0.5]{
+//image[gradlephant][Gradleのロゴ - Gradlephant][scale=0.75]{
 //}
 
 ADTでは、Eclipseとプラグインが@<kw>{APK, Application PacKage}をビルドしていました。
@@ -308,8 +311,15 @@ ADTのプロジェクトのアセットは、@<tt>{assets}ディレクトリ以�
 Android Studioの各モジュールの@<tt>{src/main/assets}ディレクトリ以下にコピーします。
 
 === Javaソースコードの移行
-ADTのプロジェクトのアセットは、@<tt>{src}ディレクトリ以下にあります。
+ADTのプロジェクトのJavaソースコードは、@<tt>{src}ディレクトリ以下にあります。
 Android Studioの各モジュールの@<tt>{src/main/java}ディレクトリ以下にコピーします。
+
+この際、ADTからパッケージを選択してコピー&ペーストすると、Android Studio側にはパッケージ構造が正確にコピーできません。
+エクスプローラー（Macの場合はFinder）などを使ってディレクトリ（パッケージ）ごと移動することをお勧めします。
+
+=== テストコードの移行
+ADTにテストコードがある場合、Android Studioの各モジュールの@<tt>{src/AndroidTest/java}ディレクトリ以下にコピーします
+（Android Studioは、テストコードをモジュール毎に管理します）。
 
 この際、ADTからパッケージを選択してコピー&ペーストすると、Android Studio側にはパッケージ構造が正確にコピーできません。
 エクスプローラー（Macの場合はFinder）などを使ってディレクトリ（パッケージ）ごと移動することをお勧めします。
@@ -337,24 +347,31 @@ versionName
 
 あらかじめ確認してあるこれらの値をAndroidManifest.xml（@<list>{adt_android_manifest}）からbuild.gradleに移動します。
 
-正確に言えば@<table>{move_to_buildgradle}の項目のうち、［minSdkVersion］と［targetSdkVersion］については、すでにAndroid Studioのプロジェクトを作成した時点で指定しているので移行する必要はありません。
-もし元のAndroidManifest.xmlの値と齟齬があれば、ここで修正できます。
-
 //list[adt_android_manifest][]{
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.keiji.library"
+    package="io.keiji.farewelladt"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="23" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
@@ -403,7 +420,7 @@ Android StudioにNDKのパスを設定します。
 
 ［SDK Locations］の一番下の@<tt>{Android NDK Location}に、NDKのパスを設定します。
 
-//image[ndk_setting][Android NDK Location][scale=0.25]{
+//image[ndk_setting][Android NDK Location][scale=0.30]{
 //}
 
 ==== ネイティブのソースコード

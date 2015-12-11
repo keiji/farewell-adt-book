@@ -81,7 +81,7 @@ epubversion: 3
 toc: true
 
 # 目次として抽出する見出しレベル。省略した場合は2
-toclevel: 2
+toclevel: 3
 # 本文でセクション番号を表示する見出しレベル。省略した場合は2
 # 採番させたくない見出しには「==[nonum]」のようにnonum指定をする
 secnolevel: 3
