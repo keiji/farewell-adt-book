@@ -1,6 +1,6 @@
 = ADTからAndroid Studioへの移行
 
-////lead{
+//lead{
 この章では、ADTのプロジェクト（ワークスペース）をAndroid Studioに移行する方法について解説します。
 //}
 
@@ -12,20 +12,19 @@ Android Studioには、ADTのプロジェクト（ワークスペース）を自
 
 しかしこの機能は、ADTのワークスペースを「とりあえず使えるようにする」だけのもので、この機能を使った場合、Android Studio本来の性能を発揮できるプロジェクト構成にはなりません。
 
-特に、ライブラリに依存していたり、複数のプロジェクトで構成されているワークスペースは、ビルドはおろか、インポートすら完了しないということも起こります。
+特に、ライブラリに依存していたり、複数のプロジェクトで構成されているワークスペースは、ビルドはおろか、インポートすら正常に完了しないということも起こります。
 
-残念ながらADTそのものが開発とサポートが終了するソフトウェアなので、今後、この機能の拡充に開発リソースが注がれることは期待できません。
+残念ながらADTそのものが開発とサポートが終了するソフトウェアなので、今後、この機能の拡充に開発リソースが注がれることは期待できないでしょう。
 
-一番確実な方法は、Android Studioのプロジェクト構造を理解した上で、ADTのワークスペースを手動で移行することです。
+ADTからAndroid Studioへ移行する一番確実な方法は、Android Studioのプロジェクトを新しく作成して、ADTのワークスペースから各要素を手動で移行することだと筆者は考えます。
 
 == 手動での移行（準備編）
-
 それでは、実際にADTのワークスペースをAndroid Studioに移行していきます。
 
 ここでは、ワークスペース@<tt>{farewelladt_workspace}を例に移行作業を進めます。
 
 === 各プロジェクト設定を確認する
-はじめに現在のADTのワークスペースを構成する各プロジェクトの設定を確認します。
+はじめに、現在のADTのワークスペースを構成する各プロジェクトの設定を確認します。
 
 確認する内容を@<table>{migration_checksheet}に示します。
 
@@ -50,7 +49,7 @@ NDKの利用	各プロジェクトのjniフォルダ
 それぞれについて値を確認していきます。
 
 //table[migration_checksheet][チェックシート記入例（FarewellAdtプロジェクト）]{
-確認項目	確認する場所（ADT）	値の例
+確認項目	確認する場所（ADT）	値
 ---------------
 プロジェクト名	ADTのプロジェクト画面	FarewellAdt
 パッケージ名	AndroidManifest.xml（package）	io.keiji.farewelladt
@@ -67,7 +66,7 @@ NDKの利用	各プロジェクトのjniフォルダ	あり
 //}
 
 //table[migration_checksheet][チェックシート記入例（libraryプロジェクト）]{
-確認項目	確認する場所（ADT）	値の例
+確認項目	確認する場所（ADT）	値
 ---------------
 プロジェクト名	ADTのプロジェクト画面	library
 パッケージ名	AndroidManifest.xml（package）	io.keiji.library
@@ -92,7 +91,7 @@ NDKの利用	各プロジェクトのjniフォルダ	なし
 //image[adt_project_setting][Project Build TargetとLibrary][scale=0.40]{
 //}
 
-必要な情報は、次の通りです。
+確認が必要な情報は次の通りです。
 
  * [Project Build Target]で選択されているAndroidのバージョンのAPI Level
  * [Library] → [is library]のチェックの有無
@@ -100,7 +99,7 @@ NDKの利用	各プロジェクトのjniフォルダ	なし
 
 
 == 手動での移行（実践編）
-必要な情報が揃ったら、いよいよ移行作業を始めます。
+情報が揃ったら、いよいよ移行作業を始めます。
 移行作業は次のステップで進めていきます。
 
  1. 新規プロジェクト（Studio）の作成
@@ -299,10 +298,11 @@ ADTでは、アプリのアイコンは標準で@<tt>{res/drawable-*}に配置�
 mipmap@<fn>{about_mipmap}は、3Dテクスチャとしての描画に最適化された画像群の名称ですが、実際にはこれまで@<tt>{res/drawable-*}に置いていた画像と違いはありません。
 PNG形式で、各解像度別の画像サイズも同じです。
 
-しかし、@<tt>{src/main/res/mipmap-*}に配置したファイルは@<tt>{R.mipmap.*}を通じてアクセスすることに注意して下さい。
+しかし、@<tt>{src/main/res/mipmap-*}に配置したファイルは@<tt>{R.mipmap.*}や@<tt>{@mipmap/*}を通じてアクセスすることに注意して下さい。
+ソースコードやリソースから@<tt>{drawable}として参照していた画像を@<tt>{mipmap}に置く場合、それぞれの参照を変更しなくてはなりません。
 
 ADTから画像リソースを移行する場合、アイコン画像は@<tt>{src/main/res/mipmap-*}に移動する。
-または@<tt>{src/main/AndroidManifest.xml}を開いて、アイコンの参照先をdrawableからmipmapに変更する必要があります。
+また@<tt>{src/main/AndroidManifest.xml}を開いて、アイコンの参照先をADTの時に設定した@<tt>{@drawable/ic_launcher}から@<tt>{@mipmap/ic_launcher}に変更する必要するなどして調整してください。
 
 //footnote[about_mipmap][Wikipedia mipmap:@<br>{}https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%83%E3%83%97%E3%83%9E%E3%83%83%E3%83%97]
 
