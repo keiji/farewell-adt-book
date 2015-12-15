@@ -4,13 +4,13 @@
 この章では、Antなどのビルドシステムで実現していたことをGradleでどのように実現するか、ユースケース毎に解説します。
 //}
 
-== 含めるソースコードやリソースを入れ替えたい
-「Product Flavors」を使えば、生成するAPKファイルに含めるソースコードやリソースを、ビルドのタスクに応じて入れ替えることができます。
+== ビルドによって含めるソースコードやリソースを入れ替えたい
+「Product Flavors」を使えば、生成するAPKファイルに含めるソースコード（クラスファイル）やリソースを、ビルドのタスクに応じて入れ替えることができます。
 
 ここでは無料の試用版（trial）と、有料版（commercial）を分ける場合を考えます。
 
 === Product Flavorを設定する
-まず@<tt>{app/src}の下に２つのディレクトリ「trial」と「commercial」を作成します。
+まず@<tt>{app/src}の下に２つのディレクトリ「@<tt>{trial}」と「@<tt>{commercial}」を作成します。
 これらが各flavorの起点となります。
 
 //cmd[commercialとtrialを追加した構成]{
@@ -32,9 +32,9 @@
     `-- trial
 //}
 
-次に、@<tt>{app/build.gradle}を開いて、@<tt>{productFlavors}の情報を記述すれば準備は完了です（@<list>{add_product_flavors}）。
+次に、@<tt>{app/build.gradle}を開いて、@<tt>{productFlavors}の情報を記述します（@<list>{add_product_flavors}）。
 
-//list[add_product_flavors][]{
+//list[add_product_flavors][productFlavorsを追加]{
 apply plugin: 'com.android.application'
 
 android {
@@ -49,7 +49,7 @@ android {
 //}
 
 === クラスを入れ替える
-@<tt>{trial}と@<tt>{commercial}それぞれに、切り替えたいクラスのソースコード（e.g. @<tt>{FooBar.java}）を配置します。
+それぞれのflavorに、切り替えたいクラスのソースコード（例. @<tt>{FooBar.java}）を配置します。
 
 //cmd[FooBar.javaをそれぞれのflavorに配置する]{
 .
@@ -74,35 +74,35 @@ android {
             `-- FooBar.java
 //}
 
-この状態でビルド（@<tt>{assemble}）すれば、それぞれの@<tt>{FooBar.java}が組み込まれた状態で２つのAPKが作成されます。
+この状態でビルド（@<tt>{assemble}）すると、それぞれのflavorに配置した@<tt>{FooBar.java}が組み込まれた２つのAPKが作成されます。
 
 ====[column] クラスの重複（mainとflavor）
 
 各flavorの下に置いたクラスを、重複して@<tt>{main}に置かないように注意してください。
-@<tt>{main}とクラスが重複した場合や、メソッド、フィールドが参照できない場合、エラーが起きてビルドが完了しません。
+@<tt>{main}とクラスが重複した場合、エラーが起きてビルドが完了しません。
 
-また、flavorの下に置いたクラスで@<tt>{main}から参照するメソッド、フィールドはすべて共通にしておく必要があります。
+また、flavorの下に置いたクラスで@<tt>{main}から参照するメソッド、フィールドは、すべて共通にしておく必要があります。
 
 ====[/column]
 
-「Gradle」タブで表示されるタスク一覧から@<tt>{assemble}を実行すれば、すべてのflavorをビルドできます。
-さらに@<tt>{assembleTrial}や@<tt>{assembleCommercial}のように、flavorを個別にビルドすることもできます。
+「Gradle」タブで表示されるタスク一覧から@<tt>{assemble}を実行すると、すべてのflavorビルドを一度に実行できます。
+@<tt>{assembleTrial}や@<tt>{assembleCommercial}のように、flavorを個別にビルドすることもできます。
 
 //image[as_gradle_tasks][タスク一覧][scale=0.4]{
 //}
 
-アプリをエミュレーターや実機で実行するflavorを選びたい場合、Android Studioの「Build Variants」タブで切り替えることができます。
+エミュレーターや実機で実行するflavorを選びたい場合、Android Studioの「Build Variants」タブ（@<img>{as_build_variants}）で切り替えることができます。
 
-なお「@<tt>{Build Variants}」とは、ここで述べた「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の２つの要素を組み合わせたものです。
+「@<tt>{Build Variants}」とは、「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の２つの要素を組み合わせたものを言います。
 
 //image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.6]{
 //}
 
-コマンドラインからもビルドを実行できます。
+ビルドは、コマンドラインからも実行できます。
 エクスプローラー（OS Xの場合はFinder）からプロジェクトのトップにディレクトリを移動して、@<tt>{./gradlew [タスク名]}を実行します。
-@<tt>{./gradlew tasks}を実行すれば、利用できるタスク一覧を表示できます。
+利用できるタスク一覧を表示するには、@<tt>{./gradlew tasks}を実行します。
 
-//cmd[コマンドライン版のGradleはgradle wrapperから利用できる]{
+//cmd[コマンドライン版のGradleはgradle wrapperを使う]{
 $ ./gradlew tasks
 Starting a new Gradle Daemon for this build (subsequent builds will be faster).
 Parallel execution is an incubating feature.
@@ -139,9 +139,9 @@ Total time: 8.705 secs
 //}
 
 === リソースを入れ替える
-@<tt>{commercial}に、切り替えたいリソース（e.g. @<tt>{ic_launcher.png}）を配置します。
+@<tt>{commercial}に、切り替えたいリソース（例. @<tt>{ic_launcher.png}）を配置します。
 
-//cmd[commercialのflavorにだけ特別なアイコンを配置する]{
+//cmd[commercialのflavorに違うアイコンを配置する]{
 .
 |-- app.iml
 |-- build.gradle
@@ -177,10 +177,14 @@ flavorにリソースがあればflavorのものが優先され、なかった�
 ====[/column]
 
 == ビルドによってアプリケーションの情報を変えたい
-Build Variantsに設定することで、アプリのさまざまな情報（applicationId, minSdkVersion, versionCode, versionName）をビルドに応じて変えることができます。
+アプリに設定するさまざまな情報（applicationId, minSdkVersion, versionCode, versionName）を、ビルドに応じて変更できます。
 
-=== applicationIdSuffixとversionNameSuffixの付加
-@<list>{ApplicationIdSuffix}を設定すれば、ビルドするアプリの基本となるapplicationId（defaultConfigのもの）の末尾に、接尾辞（Suffix）を付加できます。
+=== applicationIdSuffixとversionNameSuffix
+@<list>{ApplicationIdSuffix}は、@<tt>{applicationIdSuffix}と@<tt>{versionNameSuffix}で情報を変更している例です。
+
+@<tt>{applicationIdSuffix}は@<tt>{applicationId}の末尾に、@<tt>{versionNameSuffix}は@<tt>{versionName}の末尾に、それぞれ接尾辞（Suffix）を付加します。
+
+基本となる@<tt>{applicationId}や@<tt>{versionName}は、@<tt>{defaultConfig}で設定した値です。
 
 //list[ApplicationIdSuffix][debugビルドでapplicationIdの末尾に.debugを付加する]{
 android {
@@ -200,19 +204,17 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            buildConfigField "String", "URL_ENDPOINT", "\"https://blog.keiji.io/\""
         }
     }
 }
 //}
 
 === ApplicationIdの変更
-Product Flavorsをつかうと、ビルドするアプリの@<tt>{applicationId}を変更できます。
+ビルドするアプリの@<tt>{applicationId}を変更できます。
 
-@<list>{application_id}では、ビルドするアプリの基本となるapplicationIdそのものを変更しています。
+@<list>{application_id}の例では、ビルドするアプリのapplicationIdをまったく違うものに変更しています。
 
-//list[application_id][applicationId]{
+//list[application_id][ApplicationIdの変更]{
 android {
     defaultConfig {
         applicationId "io.keiji.farewelladt"
@@ -226,16 +228,16 @@ android {
         trial {
         }
         commercial {
-            applicationId 'io.keiji.helloandroidstudio.commercial'
+            applicationId 'jp.foo.helloandroidstudio.commercial'
         }
     }
 }
 //}
 
 === versionCodeおよびversionNameの変更
-Product Flavorsをつかうと、ビルドするアプリの@<tt>{versionCode}および@<tt>{versionName}を変更できます。
+ビルドするアプリの@<tt>{versionCode}および@<tt>{versionName}を変更できます。
 
-@<list>{versioncode_and_version_name}では、ビルドするアプリの基本となるversionCodeとversionNameそのものを変更しています。
+@<list>{versioncode_and_version_name}では、ビルドするアプリの@<tt>{versionCode}と@<tt>{versionName}を変更しています。
 
 //list[versioncode_and_version_name][trialとcommercialで異なるversionCodeとversionNameを設定している]{
 android {
@@ -263,7 +265,7 @@ android {
 applicationIdSuffixを付加したときやapplicationIdそのものを変えた場合、システムに同じアプリを複数（デバッグ版とリリース版など）のアプリをインストールできます。
 
 しかし、@<tt>{AndroidManifest.xml}に記述する項目についてはそのままでは変更されません。
-すると、例えapplicationIdが違っていても、ContentProviderのauthoritiesが重複してアプリがインストールができないという問題が発生します。
+すると、applicationIdが違っていても、ContentProviderのauthoritiesが重複してアプリがインストールができないという問題が発生します。
 
 AndroidManifest.xml側での関連部分を書き換えれば、変更したapplicationIdを反映できます。
 この処理は@<tt>{Manifest Merger}が行います。
@@ -297,7 +299,7 @@ AndroidManifest.xml側での関連部分を書き換えれば、変更したappl
 </manifest>
 //}
 
-@<tt>{{applicationId}}としたところは、ビルド時にそのアプリのapplicationIdで置き換えられます。
+@<tt>{{applicationId}}は、ビルド時にアプリのBiuld Variantsに設定されているapplicationIdで置き換えられます。
 
 そのほか、build.gradleとAndroidManifest.xmlとの連携については、次のURLを参照してください。
 
@@ -307,8 +309,8 @@ AndroidManifest.xml側での関連部分を書き換えれば、変更したappl
 == 外部コマンドの実行結果をビルドに反映したい
 ビルドの際に外部コマンドを実行できます。
 
-たとえば、現在のプロジェクトをGitで管理していた場合、Gitのハッシュ値を取得する処理は@<list>{gitsha}のようになります。
-@<code>{gitSha}メソッドの中で、実際に@<tt>{git}コマンドを実行しています。
+@<list>{gitsha}は、Gitで管理しているプロジェクトのビルドの際にGitのハッシュ値を取得する処理の例です。
+@<code>{gitSha}メソッドの中で、@<tt>{git}コマンドを実行しています。
 
 さらに、@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（versionNameSuffix）。
 
@@ -337,7 +339,7 @@ android {
 @<list>{add_buildtype_openbeta}は、@<tt>{debug}の設定を引き継いで、新しく@<tt>{openbeta}を作成する例です。
 @<tt>{openbeta}をビルドすると、@<tt>{debug}の@<tt>{versionNameSuffix}と@<tt>{applicationIdSuffix}の設定を引き継いだ上で、さらに@<tt>{minifyEnabled}を有効にした状態のAPKが生成されます。
 
-//list[add_buildtype_openbeta][]{
+//list[add_buildtype_openbeta][Build Typeの追加]{
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
@@ -352,7 +354,7 @@ android {
 //}
 
 == ビルドによって定数の内容を変えたい
-アプリのビルド時に自動で生成する@<tt>{BuildConfig}には、標準でいくつかの定数が宣言されています。
+アプリのビルド時に自動で生成される@<tt>{BuildConfig}には、標準でいくつかの定数が宣言されています。
 
 build.gradleから定数を新しく加えて、さらにBuild Variantsごとに変更できます（@<list>{build_config_field}）。
 
@@ -422,9 +424,9 @@ Lintの指摘するエラーには対応して有益な項目が数多くある�
 アプリの署名に関する情報をbuild.gradleに記述することがセキュリティ上、問題があることは言うまでもありません。
 
 署名に関する情報をバージョン管理にから切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
-作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外しておきます。
+次に、作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外します。
 
-そして、@<list>{another_properties}のようにキーストアの情報を記述します。
+そして、@<list>{another_properties}のように、キーストアの情報を記述します。
 
 //list[another_properties][foo-bar.properties]{
 storeFile=[キーストアのパス（フルパス）]
@@ -435,7 +437,7 @@ keyPassword=[キーのパスワード]
 
 記述したら、次は@<list>{new_properties_buildgradle}のように@<tt>{build.gradle}を書き換えます。
 
-signingConfigsの中で@<tt>{foo-bar.properties}があれば、ファイルをPropertiesとして読み込み、署名の情報として設定します。
+signingConfigsの中では@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定しています。
 
 //list[new_properties_buildgradle][]{
 apply plugin: 'com.android.application'
