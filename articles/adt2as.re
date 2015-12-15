@@ -244,7 +244,7 @@ dependencies {
 Android Studioは、ビルドシステムに「Gradle」を採用しています。
 「build.gradle」はGradleのビルド設定をまとめたファイル（ビルドファイル）です。
 
-//image[gradlephant][Gradleのロゴ - Gradlephant][scale=0.75]{
+//image[gradlephant][Gradleのロゴ - Gradlephant][scale=0.5]{
 //}
 
 ADTでは、Eclipseとプラグインがビルドを実行して@<kw>{APK, Application PacKage}を生成しています。
