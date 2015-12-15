@@ -7,7 +7,7 @@
 == ADTプロジェクトのインポート機能
 Android Studioには、ADTのプロジェクト（ワークスペース）を自動でインポートする機能があります。
 
-//image[adt_import][Import Project(Eclipse ADT, Gradle etc.)][scale=0.30]{
+//image[adt_import][Import Project(Eclipse ADT, Gradle etc.)][scale=0.25]{
 //}
 
 しかし、これはADTのワークスペースを「とりあえず使えるようにする」だけのもので、この機能を使った場合、Android Studio本来の性能を発揮できるプロジェクト構成にはなりません。
@@ -55,7 +55,7 @@ ADTからAndroid Studioへ移行する一番確実な方法は、Android Studio�
 //table[migration_checksheet][プロジェクトチェックシート]{
 確認項目	確認する場所（ADT）	値
 ---------------
-プロジェクト名	ADTのプロジェクト画面	　　　　　　　　　　　　　　　
+プロジェクト名	ADTのプロジェクト画面	　　　　　　　　　　　　
 パッケージ名	AndroidManifest.xml（package）
 バージョンコード	AndroidManifest.xml（versionCode）
 バージョン名	AndroidManifest.xml（versionName）
@@ -147,7 +147,7 @@ NDKの利用	各プロジェクトのjniフォルダ	なし
 [Application name]と[Company domain]をそれぞれ入力します。
 これらを組み合わせたものがデフォルトの[Package name]になります。
 
-//image[as_project_wizard1][][scale=0.30]{
+//image[as_project_wizard1][][scale=0.25]{
 //}
 
 この際[Company domain]は自動的に逆順になります。
@@ -159,12 +159,12 @@ ADTのプロジェクトウィザードのように逆順で入力してしま�
 対応する最低バージョンを選択します。ここで選択したAPI Levelが、minSdkVersionとして設定されます。
 後から書き換えることもできますが、今回は先ほど確認した値「15」に対応するバージョン「Android 4.0.3 (Ice Cream Sandwich)」を選択します。
 
-//image[as_project_wizard2][][scale=0.30]{
+//image[as_project_wizard2][][scale=0.25]{
 //}
 
 最後に追加するActivityの選択画面です。今回はADTからの移行なのでActivityは必要ありません。
 
-//image[as_project_wizard3][][scale=0.30]{
+//image[as_project_wizard3][][scale=0.25]{
 //}
 
 [Add no Activity]を選択して[Finish]をクリックすると、Android Studioはプロジェクトの生成を開始します。
@@ -201,7 +201,7 @@ ADTでは「library」として扱っていたプロジェクトを「モジュ�
 まず、モジュールの種類を選択します。ADTの「library」プロジェクトの場合はライブラリなので、[Android Library]を選択します
 （もしADTのプロジェクトがライブラリでなければ、[Phone and Tablet]など他の種類を選択します）。
 
-//image[create_module1][][scale=0.30]{
+//image[create_module1][][scale=0.25]{
 //}
 
 [Application/Library name]を入力@<fn>{capital}します。
@@ -211,7 +211,7 @@ ADTでは「library」として扱っていたプロジェクトを「モジュ�
 次に、対応する最低バージョンを選択します。ここで選択したAPI Levelが、minSdkVersionとして設定されます。
 ADTの「library」プロジェクトの値は「8」なので対応するバージョン「Android 2.2 (Froyo)」を選択します。
 
-//image[create_module2][][scale=0.30]{
+//image[create_module2][][scale=0.25]{
 //}
 
 [Finish]をクリックすると、Android Studioはモジュール「library」を生成します。
@@ -439,7 +439,7 @@ Android StudioにNDKのパスを設定します。
 
 ［SDK Locations］の一番下の@<tt>{Android NDK Location}に、NDKのパスを設定します。
 
-//image[ndk_setting][Android NDK Location][scale=0.30]{
+//image[ndk_setting][Android NDK Location][scale=0.25]{
 //}
 
 ==== ネイティブのソースコード
