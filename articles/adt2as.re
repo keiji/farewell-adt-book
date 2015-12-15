@@ -314,7 +314,7 @@ ADTでは、アプリのアイコンは標準で@<tt>{res/drawable-*}に配置�
 
 一方、Android Studioでは、プロジェクト作成時点で@<tt>{src/main/res/mipmap-*}に配置されます。
 
-mipmap@<fn>{about_mipmap}は、3Dテクスチャとしての描画に最適化された画像群の名称ですが、実際にはこれまで@<tt>{res/drawable-*}に置いていた画像と違いはありません。
+mipmapは、3Dテクスチャとしての描画に最適化された画像群の名称ですが、実際にはこれまで@<tt>{res/drawable-*}に置いていた画像と違いはありません。
 PNG形式で、各解像度別の画像サイズも同じです。
 
 しかし、@<tt>{src/main/res/mipmap-*}に配置したファイルは@<tt>{R.mipmap.*}や@<tt>{@mipmap/*}を通じてアクセスすることに注意して下さい。
@@ -322,8 +322,6 @@ PNG形式で、各解像度別の画像サイズも同じです。
 
 ADTから画像リソースを移行する場合、アイコン画像は@<tt>{src/main/res/mipmap-*}に移動する。
 また@<tt>{src/main/AndroidManifest.xml}を開いて、アイコンの参照先をADTの時に設定した@<tt>{@drawable/ic_launcher}から@<tt>{@mipmap/ic_launcher}に変更する必要するなどして調整してください。
-
-//footnote[about_mipmap][Wikipedia mipmap:@<br>{}https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%83%E3%83%97%E3%83%9E%E3%83%83%E3%83%97]
 
 ====[/column]
 
