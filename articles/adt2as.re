@@ -13,9 +13,9 @@ Android Studioには、ADTのプロジェクト（ワークスペース）を自
 しかし、これはADTのワークスペースを「とりあえず使えるようにする」だけのものです。
 この機能を使った場合、Android Studio本来の性能を発揮できるプロジェクト構成にはなりません。
 
-特に、ライブラリに依存していたり、複数のプロジェクトで構成されているワークスペースは、ビルドはおろか、インポートすら正常に完了しないということも起こります。
+特に、ライブラリに依存していたり、複数のプロジェクトで構成されているワークスペースは、インポートすら正常に完了しないということも起こります。
 
-残念ながらADTそのものが開発とサポートが終了するソフトウェアなので、今後、この機能の拡充に開発リソースが注がれることは期待できないでしょう。
+残念ながらADTそのものが開発とサポートが終了するソフトウェアなので、今後、この機能の拡充に開発リソースが注がれることは期待できません。
 
 ADTからAndroid Studioへ移行する一番確実な方法は、Android Studioのプロジェクトを新しく作成して、ADTのワークスペースから各要素を手動で移行することだと筆者は考えます。
 
@@ -73,22 +73,22 @@ NDK	各プロジェクトのjniフォルダ
 ===={adt_project_setting} プロジェクト設定
 いくつかの設定は、ADTの画面上で確認する必要があります。
 
-プロジェクトで右クリックして[Properties]をクリックすると、Project Propertiesが表示されます。
-左側メニューから[Android]を選択すると@<img>{adt_project_setting}の画面になります。
+プロジェクト一覧で右クリックして［Properties］をクリックすると、Project Propertiesが表示されます。
+左側メニューから［Android］を選択すると@<img>{adt_project_setting}の画面になります。
 
 //image[adt_project_setting][Project Build TargetとLibrary][scale=0.30]{
 //}
 
 確認が必要な情報は次の通りです。
 
- * [Project Build Target]で選択されているAndroidのバージョンのAPI Level
- * [Library] → [is library]のチェックの有無
- * [Reference]に登録されているプロジェクト名
+ * ［Project Build Target］で選択されているAndroidのバージョン（API Level）
+ * ［Library］ → ［is library］のチェックの有無
+ * ［Reference］に登録されているプロジェクト名
 
-例となる「farewelladt_workspace」には２つのプロジェクト「FarewellAdt」と「library」があります。
+例となる「farewelladt_workspace」には2つのプロジェクト「FarewellAdt」と「library」があります。
 それぞれについて値を確認していきます。
 
-//table[migration_checksheet][チェックシート記入例（FarewellAdtプロジェクト）]{
+//table[migration_checksheet1][FarewellAdtプロジェクト]{
 確認項目	値
 ---------------
 プロジェクト名	FarewellAdt
@@ -105,7 +105,7 @@ Project Build Target	Android 6.0 - API Level 23
 NDK	あり
 //}
 
-//table[migration_checksheet][チェックシート記入例（libraryプロジェクト）]{
+//table[migration_checksheet2][libraryプロジェクト]{
 確認項目	値
 ---------------
 プロジェクト名	library
@@ -133,7 +133,7 @@ NDK	なし
  5. ソースコードの移行
  6. テストの移行
  7. AndroidManifest.xmlの移行
- 8. NDK(JNI)の移行
+ 8. NDK（JNI）の移行
 
 移行の途中でエラーが出ても慌てないでください。
 エラーの修正は一通り移行作業が終わった後の方が負担が少ないので、まずは最後までやりきるように心がけましょう。
@@ -144,21 +144,21 @@ NDK	なし
 
 初期の画面から［Start a new Android Studio project］をクリックすると、プロジェクトウィザードが起動します。
 
-==== Company domainとPackage name
-［Application name］と［Company domain］をそれぞれ入力します。
+==== Company DomainとPackage name
+［Application name］と［Company Domain］をそれぞれ入力します。
 これらを組み合わせたものがデフォルトの［Package name］になります。
 
 //image[as_project_wizard1][][scale=0.25]{
 //}
 
-この際［Company domain］は自動的に逆順になります。
+この際［Company Domain］は自動的に逆順になります。
 ADTのプロジェクトウィザードのように逆順で入力してしまうと、間違った［Package name］が設定されてしまうので注意が必要です。
 
 なお、［Edit］をクリックすると、［Package name］を直接書き換えることができます。
 
 ==== 対応バージョン
-対応する最低バージョンを選択します。ここで選択したAPI Levelが、@<tt>{minSdkVersion}として設定されます。
-後から書き換えることもできますが、今回は先ほど確認した値「15」に対応するバージョン「Android 4.0.3 (Ice Cream Sandwich)」を選択します。
+対応バージョンを選択します。ここで選択したAPI Levelが、@<tt>{minSdkVersion}になります。
+後から書き換えることもできますが、今回は先ほど確認した値「Android 4.0.3 (Ice Cream Sandwich)」を選択します。
 
 //image[as_project_wizard2][][scale=0.25]{
 //}
@@ -178,16 +178,16 @@ Android Studioでは、プロジェクトの生成時にはインターネット
 
 ADTとAndroid Studioでは「プロジェクト」という単語の意味が異なるので注意が必要です。
 
-ADT（Eclipse）における大きな「まとまり」は「ワークスペース」と呼ばれ、ワークスペースの下には複数の「プロジェクト」が配置されます。
-一方、Android Studio（IntelliJ IDEA）における大きな「まとまり」は「プロジェクト」であり、その下に「モジュール」が配置される構造になっています。
+ADT（Eclipse）における最上位の単位は「ワークスペース」と呼ばれ、ワークスペースの下には複数の「プロジェクト」が配置されます。
+一方、Android Studio（IntelliJ IDEA）は「プロジェクト」が最上位の単位であり、その下に「モジュール」が配置される構造になっています。
 
 ====[/column]
 
 === Project Viewへの切り替え
-Android Studioは、プロジェクトの作成直後は標準で「Android View」が表示されます。
+Android Studioは、プロジェクトの作成直後には標準で「Android View」を表示します。
 しかし「Android View」は、実際のプロジェクト構造が見えず、移行作業には適しません。
 
-作業を進めるにあたってまず、左上のメニューから「Project View」に切り替えて下さい。
+作業を進めるにあたってまず、左上のメニューから「Project View」に切り替えてください。
 
 //image[project_view][［Project］を選択する。［Project Files］でないことに注意][scale=0.5]{
 //}
@@ -199,33 +199,31 @@ ADTでは「library」として扱っていたプロジェクトを「モジュ�
 
 ［File］メニューから［New］→［New Module］をクリックすると、モジュール作成ウィザードが起動します。
 
-まず、モジュールの種類を選択します。ADTの「library」プロジェクトの場合は、[Android Library]を選択します
-（もしADTのプロジェクトがアプリケーションなら、[Phone and Tablet]を選択します）。
+まず、モジュールの種類を選択します。ADTの「library」プロジェクトの場合は、［Android Library］を選択します
+（ADTのプロジェクトがアプリケーションなら、［Phone and Tablet］を選択します）。
 
 //image[create_module1][][scale=0.25]{
 //}
 
-［Application/Library name］を入力@<fn>{capital}します。
+［Application/Library name］を入力@<fn>{capital}し、次に対応バージョンを選択します。
+ここで選択したAPI Levelが、モジュールの@<tt>{minSdkVersion}になります。
+ADTの「library」プロジェクトの場合は、「Android 2.2 (Froyo)」を選択します。
 
 //footnote[capital][［Application/Library name］は、先頭が大文字で入力することが推奨されていますが、ADTのプロジェクトに完全に合わせるなら小文字でも問題ありません]
-
-次に、対応する最低バージョンを選択します。ここで選択したAPI Levelが、モジュールの@<tt>{minSdkVersion}になります。
-ADTの「library」プロジェクトの場合は、「Android 2.2 (Froyo)」を選択します。
 
 //image[create_module2][][scale=0.25]{
 //}
 
-[Finish]をクリックすると、Android Studioはモジュール「library」を生成します。
+［Finish］をクリックすると、Android Studioはモジュール「library」を生成します。
 
 ==== 参照（dependencies）の追加
-ここまでを終えて、Android Studioのプロジェクトには「FarewellAdt」と「library」の２つのモジュールがあります。
+ここまでを終えて、Android Studioのプロジェクトには「FarewellAdt」と「library」の2つのモジュールがあります。
 
 しかし、この段階では「FarewellAdt」は「library」にあるコードやリソースを参照できません。
-モジュール「FarewellAdt」から、モジュール「library」へ参照（dependencies）を設定する必要があります。
+モジュール「FarewellAdt」から、モジュール「library」へ参照を設定する必要があります。
 
-参照（dependencies）は、@<tt>{build.gradle}に記述します。
-
-モジュール「FarewellAdt」の@<tt>{app/build.gradle}を開いて、@<list>{add_dependencies}のように@<tt>{compile project(’:library’)}を追記します。
+参照は、@<tt>{build.gradle}に記述します。
+モジュール「FarewellAdt」の@<tt>{app/build.gradle}を開いて、@<list>{add_dependencies}のように@<tt>{dependencies}に@<tt>{compile project(’:library’)}を追記します。
 
 //list[add_dependencies][libraryへの参照（dependencies）を設定]{
 apply plugin: 'com.android.application'
@@ -252,7 +250,7 @@ ADTでは、Eclipseとプラグインがビルドを実行して@<kw>{APK, Appli
 
 しかし、ADTとAntはあくまで別のビルド環境です。
 Antのビルド設定を複雑にしていくうちに、ADTではビルドできないプロジェクト構造になる（分断されてしまう）ことも珍しくありません。
-それでは、ADTの統合開発環境としての機能がフルに発揮できなくなります。
+それでは、統合開発環境としてのADTの機能がフルに発揮できなくなります。
 
 一方、「Gradle」を使ってビルドするAndroid Studioは、ADTとAntのような分断が起こりません。
 
@@ -263,7 +261,7 @@ Gradleによるビルドは、ADTからAndroid Studioに移行する最も大き
 === ライブラリの移行
 続いて、ライブラリを移行します。
 
-ADTのプロジェクト「FarewellAdt」と「library」は、どちらもライブラリ@<tt>{android-support-v4.jar}が@<tt>{libs}に配置されています。
+ADTのプロジェクト「FarewellAdt」と「library」は、どちらもライブラリ@<tt>{android-support-v4.jar}を@<tt>{libs}に配置しています。
 
 Android Studioのモジュール「FarewellAdt」と「library」の@<tt>{build.gradle}を開くと、どちらも@<tt>{dependencies}に@<tt>{appcompat-v7}が設定されています
 （@<list>{farewelladt_appcompat}）。
@@ -273,7 +271,7 @@ Android Studioのモジュール「FarewellAdt」と「library」の@<tt>{build.
 
 //footnote[compat-support][Gradleでappcompat-v7を設定すると、自動的にandroid-support-v4の機能も取り込まれます]
 
-//list[farewelladt_appcompat][appcompat-v7への参照（依存）が設定されている]{
+//list[farewelladt_appcompat][appcompat-v7への参照を設定している]{
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     ...
@@ -287,9 +285,9 @@ Android Studio（Gradle）では基本的に、ライブラリの追加にあた
 使いたいライブラリの名前とバージョンをdependenciesに記載すると、Gradleは、Maven Cnetral@<fn>{url_maven}やjCenter@<fn>{url_jcenter}などのリポジトリからバイナリを自動的にダウンロードしてビルドを実行します。
 
 例えば、ButterKnifeを使う場合、ADTではButterKnifeのバイナリ（jar）ファイルをダウンロードして@<tt>{libs}にコピーします。
-一方、Android Studio（Gradle）では@<list>{add_butterknife}のように@<tt>{dependencies}にButterKnifeの情報を記載するだけで設定が完了します。
+一方、Android Studio（Gradle）では、@<tt>{dependencies}にButterKnifeの情報を記載するだけで設定が完了します（@<list>{add_butterknife}）。
 
-もちろん、リポジトリに登録されていないライブラリについては、これまで通りjarファイルを@<tt>{libs}に置くことができます。
+もちろん、リポジトリに登録されていないライブラリについては、これまで通りjarファイルを@<tt>{libs}に配置できます。
 
 //footnote[url_maven][Maven Central: http://search.maven.org/]
 //footnote[url_jcenter][jCenter: https://bintray.com/bintray/jcenter]
@@ -305,46 +303,47 @@ dependencies {
 === リソースの移行
 続いて、プロジェクトのリソースを移行しましょう。
 
-ADTのプロジェクトのリソースは、@<tt>{res}ディレクトリ以下にあります。
-Android Studioの各モジュールの@<tt>{src/main/res}ディレクトリ以下にコピーします。
+ADTのプロジェクトのリソースは、@<tt>{res}ディレクトリにあります。
+Android Studioの各モジュールの@<tt>{src/main/res}ディレクトリにコピーします。
 
 ====[column] drawableとmipmap
 
-ADTでは、アプリのアイコンは標準で@<tt>{res/drawable-*}に配置されました。
+ADTでは、アプリのアイコンは標準で@<tt>{res/drawable-*}に配置されます。
 
-一方、Android Studioでは、プロジェクト作成時点で@<tt>{src/main/res/mipmap-*}に配置されます。
+一方、Android Studioでは、アプリのアイコンは標準で@<tt>{src/main/res/mipmap-*}に配置されます。
 
 mipmapは、3Dテクスチャとしての描画に最適化された画像群の名称ですが、実際にはこれまで@<tt>{res/drawable-*}に置いていた画像と違いはありません。
 PNG形式で、各解像度別の画像サイズも同じです。
 
-しかし、@<tt>{src/main/res/mipmap-*}に配置したファイルは@<tt>{R.mipmap.*}や@<tt>{@mipmap/*}を通じてアクセスすることに注意して下さい。
+しかし、@<tt>{src/main/res/mipmap-*}に配置したファイルは@<tt>{R.mipmap.*}や@<tt>{@mipmap/*}を通じてアクセスすることに注意してください。
 ソースコードやリソースから@<tt>{drawable}として参照していた画像を@<tt>{mipmap}に置く場合、それぞれの参照を変更しなくてはなりません。
 
 ADTから画像リソースを移行する場合、アイコン画像は@<tt>{src/main/res/mipmap-*}に移動する。
-また@<tt>{src/main/AndroidManifest.xml}を開いて、アイコンの参照先をADTの時に設定した@<tt>{@drawable/ic_launcher}から@<tt>{@mipmap/ic_launcher}に変更するなどして調整してください。
+また@<tt>{src/main/AndroidManifest.xml}を開いて、アイコンの参照先を@<tt>{@drawable/ic_launcher}から@<tt>{@mipmap/ic_launcher}に変更するなどして調整してください。
 
 ====[/column]
 
 ==== assets
-ADTのプロジェクトのアセットは、@<tt>{assets}ディレクトリ以下にあります。
-Android Studioの各モジュールの@<tt>{src/main/assets}ディレクトリ以下にコピーします。
+ADTのプロジェクトのアセットは、@<tt>{assets}ディレクトリにあります。
+Android Studioの各モジュールの@<tt>{src/main/assets}ディレクトリにコピーします。
 
 === Javaソースコードの移行
-ADTのプロジェクトのJavaソースコードは、@<tt>{src}ディレクトリ以下にあります。
-Android Studioの各モジュールの@<tt>{src/main/java}ディレクトリ以下にコピーします。
+ADTのプロジェクトのJavaソースコードは、@<tt>{src}ディレクトリにあります。
+Android Studioの各モジュールの@<tt>{src/main/java}ディレクトリにコピーします。
 
 この際、ADTからパッケージを選択してコピー&ペーストすると、パッケージ構造を正確にコピーできない場合があります。
 エクスプローラー（OS Xの場合はFinder）などを使ってディレクトリ（パッケージ）ごとコピーしてください。
 
 === テストコードの移行
-ADTにテストコードがある場合、Android Studioの各モジュールの@<tt>{src/AndroidTest/java}ディレクトリ以下にコピーします
+ADTにテストコードがある場合、Android Studioの各モジュールの@<tt>{src/AndroidTest/java}ディレクトリにコピーします
 （Android Studioは、テストコードをモジュール毎に管理します）。
 
 この際、ADTからパッケージを選択してコピー&ペーストすると、パッケージ構造を正確にコピーできない場合があります。
 エクスプローラー（OS Xの場合はFinder）などを使ってディレクトリ（パッケージ）ごとコピーしてください。
 
 ==== build.gradleの設定
-最後に、テストを実行するために、@<tt>{build.gradle}に@<tt>{testInstrumentationRunner}を記述する必要があります。
+最後に、テストを実行するために、@<tt>{build.gradle}に@<tt>{testInstrumentationRunner}を記述します。
+
 また、@<tt>{dependencies}に@<tt>{com.android.support.test:support-annotations}と@<tt>{com.android.support.test:runner}を追加します。
 
 //list[build_gradle_for_test][testInstrumentationRunnerとdependenciesを記述する]{
@@ -389,11 +388,11 @@ dependencies {
 === AndroidManifest.xmlの移行
 最後に@<tt>{AndroidManifest.xml}をコピーします。
 
-ADTのプロジェクトのAndroidManifest.xmlは、プロジェクトの直下にあります。
+ADTのプロジェクトの@<tt>{AndroidManifest.xml}は、プロジェクトの直下にあります。
 Android Studioの各モジュールの@<tt>{src/main/}ディレクトリにコピーします。
 
 ==== build.gradleへ項目を移動する
-Android Studioでは、ADTで@<tt>{AndroidManifest.xml}に設定していた値のいくつかについては、@<tt>{build.gradle}に設定するように変更されています。
+Android Studioでは、ADTで@<tt>{AndroidManifest.xml}に設定していた値のいくつかは、@<tt>{build.gradle}に設定するように変更されています。
 
 @<tt>{build.gradle}へ移動する項目を@<table>{move_to_buildgradle}に示します。
 
@@ -532,7 +531,7 @@ task clean(type: Delete) {
 
 @<list>{farewelladt_buildgradle}は、@<tt>{com.android.application}を@<tt>{com.android.model.application}に変更しています。
 
-@<tt>{com.android.model.application}は通常のプラグインと@<kw>{DSL,Domain-Specific Language}が違うので注意して下さい。
+@<tt>{com.android.model.application}は通常のプラグインと@<kw>{DSL,Domain-Specific Language}が違うので注意してください。
 
 @<tt>{android}は@<tt>{model}の下に位置します。
 @<tt>{compileSdkVersion}などの値も空白ではなく@<tt>{=}で指定し、@<tt>{defaultConfig}には@<tt>{.with}が必要です。
@@ -604,11 +603,11 @@ dependencies {
 }
 //}
 
-変更点は@<tt>{com.android.model.application}を指定した場合と共通ですが、@<tt>{versionCode}と@<tt>{versionName}を削除するのを忘れないようにして下さい。
+変更点は@<tt>{com.android.model.application}を指定した場合と共通ですが、@<tt>{versionCode}と@<tt>{versionName}を削除するのを忘れないようにしてください。
 
 ライブラリの場合、@<tt>{defaultConfig.with}の中に@<tt>{versionCode}や@<tt>{versionName}があると、@<tt>{org.gradle.api.internal.ExtensibleDynamicObject}が原因でビルドに失敗します。
 
-NDKに関する最新の情報、詳細な設定方法については次のサイトを参照して下さい。
+NDKに関する最新の情報、詳細な設定方法については次のサイトを参照してください。
 
  * 参考
  ** http://tools.android.com/tech-docs/new-build-system/gradle-experimental

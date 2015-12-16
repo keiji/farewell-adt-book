@@ -10,7 +10,7 @@
 ここでは無料の試用版（trial）と、有料版（commercial）を分ける場合を考えます。
 
 === Product Flavorを設定する
-まず@<tt>{app/src}の下に２つのディレクトリ「trial」と「commercial」を作成します。
+まず@<tt>{app/src}の下に2つのディレクトリ「trial」と「commercial」を作成します。
 これらが各flavorの起点となります。
 
 //cmd[commercialとtrialを追加した構成]{
@@ -72,7 +72,7 @@ android {
             `-- FooBar.java
 //}
 
-この状態でビルド（@<tt>{assemble}）すると、それぞれのflavorに配置した@<tt>{FooBar.java}が組み込まれた２つのAPKが作成されます。
+この状態でビルド（@<tt>{assemble}）すると、それぞれのflavorに配置した@<tt>{FooBar.java}が組み込まれたAPKが作成されます。
 
 ====[column] クラスの重複（mainとflavor）
 
@@ -83,7 +83,7 @@ android {
 
 ====[/column]
 
-「Gradle」タブで表示されるタスク一覧から@<tt>{assemble}を実行すると、すべてのflavorビルドを一度に実行できます。
+「Gradle」タブで表示されるタスク一覧から@<tt>{assemble}を実行すると、すべてのflavorのビルドを一度に実行できます。
 @<tt>{assembleTrial}や@<tt>{assembleCommercial}のように、flavorを個別にビルドすることもできます。
 
 //image[as_gradle_tasks][タスク一覧][scale=0.4]{
@@ -91,7 +91,7 @@ android {
 
 エミュレーターや実機で実行するflavorを選びたい場合、Android Studioの「Build Variants」タブ（@<img>{as_build_variants}）で切り替えることができます。
 
-「@<tt>{Build Variants}」とは、「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の２つの要素を組み合わせたものを言います。
+「@<tt>{Build Variants}」とは、「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の2つの要素を組み合わせたものを言います。
 
 //image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.5]{
 //}
@@ -139,7 +139,7 @@ Total time: 8.705 secs
 === リソースを入れ替える
 それぞれのflavorのディレクトリに、切り替えたいリソース（例. @<tt>{ic_launcher.png}）を配置します。
 
-次の例は、commercialに画像リソース@<tt>{ic_launcher.png}を配置しています。
+次の例では、commercialに画像リソース@<tt>{ic_launcher.png}を配置しています。
 
 //cmd[commercialのflavorに違うアイコンを配置する]{
 .
@@ -167,7 +167,7 @@ Total time: 8.705 secs
     `-- trial
 //}
 
-この状態でflavorをビルドすれば、「commercial」は設定したアイコンが組み込まれた状態でAPKが作成されます。
+この状態でflavorをビルドすれば、「commercial」は設定したアイコンが組み込まれたAPKが作成されます。
 
 ====[column] リソースの重複（mainとflavor）
 
@@ -209,6 +209,8 @@ android {
     }
 }
 //}
+
+@<tt>{debug}については、@<tt>{applicationId}が@<tt>{io.keiji.farewelladt.debug}、@<tt>{versionName}が@<tt>{1.0 debug}に設定されます。
 
 === ApplicationIdの変更
 ビルドするアプリの@<tt>{applicationId}を変更できます。
@@ -263,13 +265,12 @@ android {
 //}
 
 === AndroidManifest.xmlへの反映
-applicationIdSuffixを付加したときやapplicationIdそのものを変えた場合、システムに同じアプリを複数（デバッグ版とリリース版など）のアプリをインストールできます。
+applicationIdSuffixを付加したときやapplicationIdそのものを変えた場合、デバッグ版とリリース版など複数のアプリを一台の端末にインストールできます。
 
-しかし、@<tt>{AndroidManifest.xml}に記述する項目についてはそのままでは変更されません。
+しかし、@<tt>{AndroidManifest.xml}に記述する項目については変更されません。
 すると、applicationIdが違っていても、ContentProviderのauthoritiesが重複してアプリがインストールができないという問題が発生します。
 
-AndroidManifest.xml側での関連部分を書き換えれば、変更したapplicationIdを反映できます。
-この処理は@<tt>{Manifest Merger}が行います。
+AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反映するには、@<tt>{Manifest Merger}を使います（@<list>{androidmanifest}）。
 
 //list[androidmanifest][providerのauthoritiesをapplicationIdで置き換える]{
 <?xml version="1.0" encoding="utf-8"?>
@@ -312,9 +313,9 @@ AndroidManifest.xml側での関連部分を書き換えれば、変更したappl
 @<list>{gitsha}は、Gitで管理しているプロジェクトのビルドの際にGitのハッシュ値を取得する例です。
 @<code>{gitSha}メソッドの中で、@<tt>{git}コマンドを実行しています。
 
-さらに、@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（versionNameSuffix）。
+さらに、@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（@<tt>{versionNameSuffix}）。
 
-//list[gitsha][gitSha]{
+//list[gitsha][gitShaメソッド]{
 apply plugin: 'com.android.application'
 
 def gitSha() {
@@ -332,9 +333,9 @@ android {
 //}
 
 == 新しいBuild Typeを追加したい
-最初に定義されている@<tt>{debug}と@<tt>{release}以外にもBuidTypeを追加できます。
+最初に定義されている@<tt>{debug}と@<tt>{release}以外にもBuid Typeを追加できます。
 
-@<tt>{initWith}を使うと、すでにあるBuild Type設定を引き継いで新しいBuild Typeを追加することができます。
+また、@<tt>{initWith}を使うと、すでにあるBuild Type設定を引き継いで新しいBuild Typeを追加することができます。
 
 @<list>{add_buildtype_openbeta}は、@<tt>{debug}の設定を引き継いで、新しく@<tt>{openbeta}を作成する例です。
 
@@ -353,7 +354,7 @@ android {
     }
 //}
 
-@<tt>{openbeta}をビルドすると、@<tt>{debug}の@<tt>{versionNameSuffix}と@<tt>{applicationIdSuffix}の設定を引き継いだ上で、さらに@<tt>{minifyEnabled}を有効にした状態のAPKが生成されます。
+@<tt>{openbeta}をビルドすると、@<tt>{debug}の@<tt>{versionNameSuffix}と@<tt>{applicationIdSuffix}の設定を引き継いだ上で、さらに@<tt>{minifyEnabled}を有効になったAPKが生成されます。
 
 == ビルドによって定数の内容を変えたい
 アプリのビルド時に自動で生成される@<tt>{BuildConfig}には、標準でいくつかの定数が宣言されています。
@@ -410,7 +411,7 @@ public final class BuildConfig {
 
 ====[column] 注意
 
-Lintの指摘するエラーには対応して有益な項目が数多くあるので、この設定は慎重に行ってください。
+Lintの指摘するエラーには対応して有益な項目が数多くあります。この設定は慎重に行ってください。
 
 ====[/column]
 
@@ -427,10 +428,10 @@ android {
 }
 //}
 
-== アプリの署名に関する情報をバージョン管理に含めたくない
-アプリの署名に関する情報を@<tt>{build.gradle}に記述することがセキュリティ上、問題があることは言うまでもありません。
+== 証明書に関する情報をバージョン管理に含めたくない
+アプリの署名に関係する情報を@<tt>{build.gradle}に記述することがセキュリティ上、問題があることは言うまでもありません。
 
-署名に関する情報をバージョン管理にから切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
+署名に関する情報をバージョン管理から切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
 次に、作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外します。
 
 そして、@<list>{another_properties}のように、キーストアの情報を記述します。
@@ -444,7 +445,7 @@ keyPassword=[キーのパスワード]
 
 記述したら、次は@<tt>{build.gradle}を書き換えます（@<list>{new_properties_buildgradle}）。
 
-@<tt>{signingConfigs}で@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定しています。
+@<tt>{signingConfigs}で@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定します。
 
 //list[new_properties_buildgradle][]{
 apply plugin: 'com.android.application'

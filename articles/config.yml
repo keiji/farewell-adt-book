@@ -9,7 +9,7 @@ bookname: farewell-adt
 # 記述言語。省略した場合はja
 language: ja
 # 書名
-booktitle: Android Studio完全移行ガイド（仮題）
+booktitle: Android Studio完全移行ガイド
 # 固有IDに使用するドメイン。省略した場合は時刻に基づくランダムUUIDが入る
 urnid: urn:uid:http://blog.keiji.io/books/farewell-adt/1.0.0/
 # ISBN。省略した場合はurnidが入る
