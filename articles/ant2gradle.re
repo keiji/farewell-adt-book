@@ -10,7 +10,7 @@
 ここでは無料の試用版（trial）と、有料版（commercial）を分ける場合を考えます。
 
 === Product Flavorを設定する
-まず@<tt>{app/src}の下に２つのディレクトリ「@<tt>{trial}」と「@<tt>{commercial}」を作成します。
+まず@<tt>{app/src}の下に２つのディレクトリ「trial」と「commercial」を作成します。
 これらが各flavorの起点となります。
 
 //cmd[commercialとtrialを追加した構成]{
@@ -38,8 +38,6 @@
 apply plugin: 'com.android.application'
 
 android {
-
-    // 省略
 
     productFlavors {
         trial
@@ -78,10 +76,10 @@ android {
 
 ====[column] クラスの重複（mainとflavor）
 
-各flavorの下に置いたクラスを、重複して@<tt>{main}に置かないように注意してください。
-@<tt>{main}とクラスが重複した場合、エラーが起きてビルドが完了しません。
+各flavorの下に置いたクラスを、重複して「main」に置かないように注意してください。
+「main」とクラスが重複した場合、エラーが起きてビルドが完了しません。
 
-また、flavorの下に置いたクラスで@<tt>{main}から参照するメソッド、フィールドは、すべて共通にしておく必要があります。
+また、flavorの下に置いたクラスで「main」から参照するメソッド、フィールドは、すべて共通にしておく必要があります。
 
 ====[/column]
 
@@ -95,7 +93,7 @@ android {
 
 「@<tt>{Build Variants}」とは、「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の２つの要素を組み合わせたものを言います。
 
-//image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.6]{
+//image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.5]{
 //}
 
 ビルドは、コマンドラインからも実行できます。
@@ -139,7 +137,9 @@ Total time: 8.705 secs
 //}
 
 === リソースを入れ替える
-@<tt>{commercial}に、切り替えたいリソース（例. @<tt>{ic_launcher.png}）を配置します。
+それぞれのflavorのディレクトリに、切り替えたいリソース（例. @<tt>{ic_launcher.png}）を配置します。
+
+次の例は、commercialに画像リソース@<tt>{ic_launcher.png}を配置しています。
 
 //cmd[commercialのflavorに違うアイコンを配置する]{
 .
@@ -167,12 +167,12 @@ Total time: 8.705 secs
     `-- trial
 //}
 
-この状態でflavorをビルドすれば、@<tt>{commercial}はflavorに設定したアイコンが組み込まれた状態でAPKが作成されます。
+この状態でflavorをビルドすれば、「commercial」は設定したアイコンが組み込まれた状態でAPKが作成されます。
 
 ====[column] リソースの重複（mainとflavor）
 
-リソースの場合は@<tt>{main}のリソースと重複しても、ビルドエラーにはなりません。
-flavorにリソースがあればflavorのものが優先され、なかった場合は@<tt>{main}のリソースがAPKに組み込まれます。
+リソースの場合は「main」のリソースと重複しても、ビルドエラーにはなりません。
+flavorにリソースがあればflavorのものが優先され、なかった場合は「main」のリソースがAPKに組み込まれます。
 
 ====[/column]
 
@@ -203,7 +203,8 @@ android {
         }
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
 }
@@ -292,8 +293,7 @@ AndroidManifest.xml側での関連部分を書き換えれば、変更したappl
 
         <provider
             android:name=".provider.SomeContentProvider"
-            android:authorities="${applicationId}"
-            android:exported="false"/>
+            android:authorities="${applicationId}"/>
     </application>
 
 </manifest>
@@ -309,7 +309,7 @@ AndroidManifest.xml側での関連部分を書き換えれば、変更したappl
 == 外部コマンドの実行結果をビルドに反映したい
 ビルドの際に外部コマンドを実行できます。
 
-@<list>{gitsha}は、Gitで管理しているプロジェクトのビルドの際にGitのハッシュ値を取得する処理の例です。
+@<list>{gitsha}は、Gitで管理しているプロジェクトのビルドの際にGitのハッシュ値を取得する例です。
 @<code>{gitSha}メソッドの中で、@<tt>{git}コマンドを実行しています。
 
 さらに、@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（versionNameSuffix）。
@@ -337,7 +337,6 @@ android {
 @<tt>{initWith}を使うと、すでにあるBuild Type設定を引き継いで新しいBuild Typeを追加することができます。
 
 @<list>{add_buildtype_openbeta}は、@<tt>{debug}の設定を引き継いで、新しく@<tt>{openbeta}を作成する例です。
-@<tt>{openbeta}をビルドすると、@<tt>{debug}の@<tt>{versionNameSuffix}と@<tt>{applicationIdSuffix}の設定を引き継いだ上で、さらに@<tt>{minifyEnabled}を有効にした状態のAPKが生成されます。
 
 //list[add_buildtype_openbeta][Build Typeの追加]{
     buildTypes {
@@ -348,15 +347,18 @@ android {
         openbeta.initWith(buildTypes.debug)
         openbeta {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
 //}
 
+@<tt>{openbeta}をビルドすると、@<tt>{debug}の@<tt>{versionNameSuffix}と@<tt>{applicationIdSuffix}の設定を引き継いだ上で、さらに@<tt>{minifyEnabled}を有効にした状態のAPKが生成されます。
+
 == ビルドによって定数の内容を変えたい
 アプリのビルド時に自動で生成される@<tt>{BuildConfig}には、標準でいくつかの定数が宣言されています。
 
-build.gradleから定数を新しく加えて、さらにBuild Variantsごとに変更できます（@<list>{build_config_field}）。
+@<tt>{build.gradle}を設定すると定数を追加したり、さらにBuild Variantsごとに変更したりできます（@<list>{build_config_field}）。
 
 //list[build_config_field][buildConfigFieldによる定数の宣言]{
 android {
@@ -368,15 +370,16 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "URL_ENDPOINT", "\"https://test.keiji.io/\""
+        buildConfigField "String", "API_URL", "\"https://test.keiji.io/\""
     }
 
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
 
-            buildConfigField "String", "URL_ENDPOINT", "\"https://blog.keiji.io/\""
+            buildConfigField "String", "API_URL","\"https://blog.keiji.io/\""
         }
     }
 }
@@ -385,7 +388,7 @@ android {
 この状態でビルドをすると、@<list>{build_config_field_build_config}のように定数を追加して@<tt>{BuildConfig.java}を生成します。
 また、リリースビルドでは@<tt>{release}の中で宣言した値で@<tt>{BuildConfig.java}を生成します。
 
-//list[build_config_field_build_config][定数URL_ENDPOINTが追加されている]{
+//list[build_config_field_build_config][定数API_URLが追加されている]{
 /**
  * Automatically generated file. DO NOT MODIFY
  */
@@ -399,11 +402,18 @@ public final class BuildConfig {
   public static final int VERSION_CODE = 30;
   public static final String VERSION_NAME = "1.0";
   // Fields from default config.
-  public static final String URL_ENDPOINT = "https://test.keiji.io/";
+  public static final String API_URL = "https://test.keiji.io/";
 }
 //}
 
 == Lintのエラーでリリースビルドを中止させたくない
+
+====[column] 注意
+
+Lintの指摘するエラーには対応して有益な項目が数多くあるので、この設定は慎重に行ってください。
+
+====[/column]
+
 リリースビルド（assembleRelease）を実行するとLintがコードをチェックして、エラー項目があるとビルドを中止します。
 
 @<tt>{lintOptions}を設定することで、Lintでエラーを指摘してもリリースビルドを中止せず、リリース用のAPKを生成できます（@<list>{lint_options}）。
@@ -417,11 +427,8 @@ android {
 }
 //}
 
-===== 注意
-Lintの指摘するエラーには対応して有益な項目が数多くあるので、この設定は慎重に行ってください。
-
 == アプリの署名に関する情報をバージョン管理に含めたくない
-アプリの署名に関する情報をbuild.gradleに記述することがセキュリティ上、問題があることは言うまでもありません。
+アプリの署名に関する情報を@<tt>{build.gradle}に記述することがセキュリティ上、問題があることは言うまでもありません。
 
 署名に関する情報をバージョン管理にから切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
 次に、作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外します。
@@ -435,9 +442,9 @@ keyAlias=[キーの名前]
 keyPassword=[キーのパスワード]
 //}
 
-記述したら、次は@<list>{new_properties_buildgradle}のように@<tt>{build.gradle}を書き換えます。
+記述したら、次は@<tt>{build.gradle}を書き換えます（@<list>{new_properties_buildgradle}）。
 
-signingConfigsの中では@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定しています。
+@<tt>{signingConfigs}で@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定しています。
 
 //list[new_properties_buildgradle][]{
 apply plugin: 'com.android.application'
@@ -462,7 +469,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
 
             signingConfig signingConfigs.release
         }
