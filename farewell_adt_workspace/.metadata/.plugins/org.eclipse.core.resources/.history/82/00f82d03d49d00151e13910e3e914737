@@ -1,0 +1,30 @@
+package io.keiji.farewelladt;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+	public native String stringFromJNI();
+
+	public native String unimplementedStringFromJNI();
+
+	static {
+		System.loadLibrary("hello-jni");
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.login);
+
+		EditText mailAddress = (EditText) findViewById(R.id.mailaddress);
+		mailAddress.setText(stringFromJNI());
+		setContentView(mailAddress);
+
+	}
+}

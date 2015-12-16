@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+/Users/keiji_ariyama/Documents/workspace/.metadata/.plugins/org.eclipse.jdt.core
+2617879766.index
