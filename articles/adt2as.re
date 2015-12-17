@@ -126,14 +126,15 @@ NDK	なし
 情報が揃ったら、いよいよ移行作業を始めます。
 移行作業は次のステップで進めていきます。
 
- 1. 新規プロジェクト（Studio）の作成
+ 1. 新規（Android Studio）プロジェクトの作成
  2. モジュールの作成
  3. ライブラリの移行
  4. リソースの移行
- 5. ソースコードの移行
- 6. テストの移行
- 7. AndroidManifest.xmlの移行
- 8. NDK（JNI）の移行
+ 5. アセットの移行
+ 6. ソースコードの移行
+ 7. テストの移行
+ 8. AndroidManifest.xmlの移行
+ 9. NDK（JNI）の移行
 
 移行の途中でエラーが出ても慌てないでください。
 エラーの修正は一通り移行作業が終わった後の方が負担が少ないので、まずは最後までやりきるように心がけましょう。
@@ -183,7 +184,7 @@ ADT（Eclipse）における最上位の単位は「ワークスペース」と�
 
 ====[/column]
 
-=== Project Viewへの切り替え
+==== Project Viewへの切り替え
 Android Studioは、プロジェクトの作成直後には標準で「Android View」を表示します。
 しかし「Android View」は、実際のプロジェクト構造が見えず、移行作業には適しません。
 
@@ -301,8 +302,6 @@ dependencies {
 //}
 
 === リソースの移行
-続いて、プロジェクトのリソースを移行しましょう。
-
 ADTのプロジェクトのリソースは、@<tt>{res}ディレクトリにあります。
 Android Studioの各モジュールの@<tt>{src/main/res}ディレクトリにコピーします。
 
@@ -323,7 +322,7 @@ ADTから画像リソースを移行する場合、アイコン画像は@<tt>{sr
 
 ====[/column]
 
-==== assets
+=== アセットの移行
 ADTのプロジェクトのアセットは、@<tt>{assets}ディレクトリにあります。
 Android Studioの各モジュールの@<tt>{src/main/assets}ディレクトリにコピーします。
 
@@ -386,10 +385,8 @@ dependencies {
 //}
 
 === AndroidManifest.xmlの移行
-最後に@<tt>{AndroidManifest.xml}をコピーします。
-
 ADTのプロジェクトの@<tt>{AndroidManifest.xml}は、プロジェクトの直下にあります。
-Android Studioの各モジュールの@<tt>{src/main/}ディレクトリにコピーします。
+Android Studioの各モジュールの@<tt>{src/main/}ディレクトリにある@<tt>{AndroidManifest.xml}に内容をコピーします。
 
 ==== build.gradleへ項目を移動する
 Android Studioでは、ADTで@<tt>{AndroidManifest.xml}に設定していた値のいくつかは、@<tt>{build.gradle}に設定するように変更されています。
@@ -603,11 +600,15 @@ dependencies {
 }
 //}
 
-変更点は@<tt>{com.android.model.application}を指定した場合と共通ですが、@<tt>{versionCode}と@<tt>{versionName}を削除するのを忘れないようにしてください。
+====[column] 注意
+
+ライブラリプロジェクトにJNIを設定する際、@<tt>{versionCode}と@<tt>{versionName}を削除するのを忘れないようにしてください。
 
 ライブラリの場合、@<tt>{defaultConfig.with}の中に@<tt>{versionCode}や@<tt>{versionName}があると、@<tt>{org.gradle.api.internal.ExtensibleDynamicObject}が原因でビルドに失敗します。
 
-NDKに関する最新の情報、詳細な設定方法については次のサイトを参照してください。
+その他、NDKに関する最新の情報、詳細な設定方法については次のサイトを参照してください。
 
  * 参考
  ** http://tools.android.com/tech-docs/new-build-system/gradle-experimental
+
+====[/column]

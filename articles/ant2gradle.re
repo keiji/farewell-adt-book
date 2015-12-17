@@ -167,7 +167,7 @@ Total time: 8.705 secs
     `-- trial
 //}
 
-この状態でflavorをビルドすれば、「commercial」は設定したアイコンが組み込まれたAPKが作成されます。
+この状態でビルドすると、flavor「commercial」には設定したアイコンが組み込まれたAPKが作成されます。
 
 ====[column] リソースの重複（mainとflavor）
 
@@ -265,10 +265,12 @@ android {
 //}
 
 === AndroidManifest.xmlへの反映
-applicationIdSuffixを付加したときやapplicationIdそのものを変えた場合、デバッグ版とリリース版など複数のアプリを一台の端末にインストールできます。
+applicationIdSuffixを付加したときやapplicationIdそのものを変えた場合、デバッグ版とリリース版など複数のアプリを一台の端末にインストールできますが、@<tt>{AndroidManifest.xml}に記述する項目については変更されません。
 
-しかし、@<tt>{AndroidManifest.xml}に記述する項目については変更されません。
-すると、applicationIdが違っていても、ContentProviderのauthoritiesが重複してアプリがインストールができないという問題が発生します。
+すると、applicationIdが違っていても、ContentProviderのauthoritiesが重複していると、アプリがインストールができないという問題が発生します。
+
+//image[install_failed_conflict_provider][INSTALL_FAILED_CONFLICTING_PROVIDER][scale=0.4]{
+//}
 
 AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反映するには、@<tt>{Manifest Merger}を使います（@<list>{androidmanifest}）。
 
@@ -282,7 +284,6 @@ AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反�
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -308,12 +309,12 @@ AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反�
  ** http://tools.android.com/tech-docs/new-build-system/user-guide/manifest-merger
 
 == 外部コマンドの実行結果をビルドに反映したい
-ビルドの際に外部コマンドを実行できます。
+ビルドの過程で外部コマンドを実行できます。
 
-@<list>{gitsha}は、Gitで管理しているプロジェクトのビルドの際にGitのハッシュ値を取得する例です。
+@<list>{gitsha}は、Gitで管理しているプロジェクトの（Gitの）ハッシュ値を取得する例です。
 @<code>{gitSha}メソッドの中で、@<tt>{git}コマンドを実行しています。
 
-さらに、@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（@<tt>{versionNameSuffix}）。
+@<tt>{buildTypes}の@<tt>{debug}内でメソッドを実行することで、@<tt>{versionName}の末尾にハッシュ値を追加しています（@<tt>{versionNameSuffix}）。
 
 //list[gitsha][gitShaメソッド]{
 apply plugin: 'com.android.application'
@@ -379,14 +380,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
-
             buildConfigField "String", "API_URL","\"https://blog.keiji.io/\""
         }
     }
 }
 //}
 
-この状態でビルドをすると、@<list>{build_config_field_build_config}のように定数を追加して@<tt>{BuildConfig.java}を生成します。
+この状態でビルドをすると、@<list>{build_config_field_build_config}のように定数を追加した@<tt>{BuildConfig.java}を生成します。
 また、リリースビルドでは@<tt>{release}の中で宣言した値で@<tt>{BuildConfig.java}を生成します。
 
 //list[build_config_field_build_config][定数API_URLが追加されている]{
@@ -409,15 +409,15 @@ public final class BuildConfig {
 
 == Lintのエラーでリリースビルドを中止させたくない
 
-====[column] 注意
+=====[column] 注意
 
-Lintの指摘するエラーには対応して有益な項目が数多くあります。この設定は慎重に行ってください。
+Lintの指摘するエラーには対応すべき項目が数多くあります。この設定は慎重に行ってください。
 
-====[/column]
+=====[/column]
 
 リリースビルド（assembleRelease）を実行するとLintがコードをチェックして、エラー項目があるとビルドを中止します。
 
-@<tt>{lintOptions}を設定することで、Lintでエラーを指摘してもリリースビルドを中止せず、リリース用のAPKを生成できます（@<list>{lint_options}）。
+@<tt>{lintOptions}を設定することで、Lintでエラーを指摘してもリリースビルドを中止せず、APKを生成できます（@<list>{lint_options}）。
 
 //list[lint_options][Lintのエラーで中止しないようにする]{
 android {
@@ -428,13 +428,12 @@ android {
 }
 //}
 
-== 証明書に関する情報をバージョン管理に含めたくない
-アプリの署名に関係する情報を@<tt>{build.gradle}に記述することがセキュリティ上、問題があることは言うまでもありません。
+== 署名のキーストアに関する情報をバージョン管理に含めたくない
+アプリの署名に使うキーストアの情報を@<tt>{build.gradle}に記述することはセキュリティ上、避けたいところです。
 
-署名に関する情報をバージョン管理から切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
-次に、作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外します。
+キーストアの情報をバージョン管理から切り離すには、まず、プロジェクトのトップに新しくファイル@<tt>{foo-bar.properties}を作成します。
 
-そして、@<list>{another_properties}のように、キーストアの情報を記述します。
+次に、作成した@<tt>{foo-bar.properties}を@<tt>{.gitignore}に加えて、Gitの管理から外した上で、@<list>{another_properties}のようにプロパティを記述します。
 
 //list[another_properties][foo-bar.properties]{
 storeFile=[キーストアのパス（フルパス）]
@@ -445,11 +444,9 @@ keyPassword=[キーのパスワード]
 
 記述したら、次は@<tt>{build.gradle}を書き換えます（@<list>{new_properties_buildgradle}）。
 
-@<tt>{signingConfigs}で@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名の情報として設定します。
+@<tt>{signingConfigs}で@<tt>{foo-bar.properties}があればPropertiesとして読み込み、署名に使うキーストアとして設定します。
 
-//list[new_properties_buildgradle][]{
-apply plugin: 'com.android.application'
-
+//list[new_properties_buildgradle][プロパティファイルがあれば読み込む]{
 android {
 
     signingConfigs {

@@ -11,12 +11,12 @@
 チェコJetBrains社が開発している「IntelliJ IDEA@<fn>{intellij}」をベースに開発されています。
 
 一方、@<kw>{ADT,Android Developer Tools}は、2007年にAndroidが発表されて以来、普及してきたEclipseベースのIDEです。
-当初はプラグインの形態で配布され、中期以降はEclipseに組み込まれた状態（単体版）で配布されていました。
+当初はEclipseのプラグインとして配布され、中期以降はEclipseに組み込まれて単体版が配布されていました。
 
 //footnote[intellij][「IntelliJ IDEA Community Edition」をベースに開発されています]
 
 == Time to Migrate
-2015年1月、Android Studioのバージョンが1.0になると「公式開発環境」の冠はAndroid Studioに移され、ADTは再びプラグインによる提供のみとなりました。
+2015年1月、Android Studioのバージョンが1.0になると同時に「公式開発環境」の冠はAndroid Studioに移され、ADTは再びプラグインによる提供のみとなりました。
 
 更に米Google社は、それから半年経つか経たないかのうちに、2015年末でADTの開発やサポートを打ち切ることをアナウンスしました。
 
@@ -24,14 +24,14 @@
  ** http://android-developers.blogspot.jp/2015/06/an-update-on-eclipse-android-developer.html
 
 これは「ASに移行することで発生するリスク」より「移行しないリスク」が高くなったことを意味します。
-
 今後、Android本体のバージョンやビルドツールなどのアップデートがあれば、ADTでアプリがビルドできなくなる可能性があるからです。
+
 これまでADTで開発していたすべてのプロジェクトが開発を続けていくには、Android Studioに移行（Migrate）する必要があります。
 
 とは言え、使い慣れてきたIDEを変えるのは抵抗があるものです。「移行にチャレンジしたけど挫折した」と言う人も少なくはないでしょう。
 また、ADTだけでなく、Antなどのビルドシステムで培ってきた資産をどのように移行すれば良いのか、不安に思う人もいることと思います。
 
-そこで本書ではまず、ADTのプロジェクトからAndroid Studioへの移行について、準備から実際の手順を含めて解説します（@<chap>{adt2as}）。
+本書ではまず、ADTのプロジェクトからAndroid Studioへの移行について、準備から実際の手順を含めて解説します（@<chap>{adt2as}）。
 次に、Antなどのビルドシステムで実現していた処理をAndroid Studio(Gradle)で実現するにはどのようにすればいいか、ユースケース毎に解説します（@<chap>{ant2gradle}）。
 
 本書が、皆さんのAndroid Studioへの道しるべになることを願っています。
