@@ -68,7 +68,7 @@ rights: |
 # relation: 補助的リソース
 # coverage: 内容の範囲や領域
 
-texdocumentclass: ["jsbook", "twoside,b5j,openany"]
+texdocumentclass: ["jsbook", "twoside,openany"]
 
 # htmlext: HTMLファイルの拡張子(省略した場合はhtml)
 # CSSファイル(配列で複数指定可、yamlファイルおよびRe:VIEWファイルを置いたディレクトリにあること)
