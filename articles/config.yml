@@ -186,5 +186,8 @@ colophon: true
 # fontdir内から取り込まれる対象となるファイル拡張子。省略した場合は以下
 # font_ext: ["ttf", "woff", "otf"]
 
+pubhistory: |
+  2015年12月31日  初版発行
+
 texstyle: reviewmacro
 debug: false
