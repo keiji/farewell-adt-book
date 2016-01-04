@@ -44,3 +44,12 @@
  ** ADT plugin 23.0.7
  * Android Studio 1.5.1
  * Android NDK r10e
+
+== 最新情報の提供
+本文書に関する最新情報は、
+
+ * Android Studio完全移行ガイド
+ ** PDF版 http://keiji.github.io/farewell-adt-book/archives/farewell-adt.pdf
+ * GitHub https://github.com/keiji/farewell-adt-book
+
+で、提供していきます。

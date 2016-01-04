@@ -11,27 +11,27 @@ language: ja
 # 書名
 booktitle: Android Studio完全移行ガイド
 # 固有IDに使用するドメイン。省略した場合は時刻に基づくランダムUUIDが入る
-urnid: urn:uid:http://blog.keiji.io/books/farewell-adt/1.0.0/
+urnid: urn:uid:http://blog.keiji.io/books/farewell-adt-book/1.0.0/
 # ISBN。省略した場合はurnidが入る
 # isbn: null
 # 著者名。["高橋征義", "John Doe"] のように配列を使うことで複数指定可
 aut: 有山 圭二
-ill: 根雪れい
+# ill: 根雪れい
 # 出版社。配列書式で複数指定可能
-prt: めがねをかけるんだ
+# prt: めがねをかけるんだ
+prt_url:  https://github.com/keiji/farewell-adt-book
 # 編集者。配列書式で複数指定可能
 # edt: 高橋征義
 # 刊行日。YYYY-MM-DD形式。省略した場合は本日の日付
-date: コミックマーケット89
+date: 2016/01/04
 # 発行年月。YYYY-MM-DD形式による配列指定。省略した場合はdateを使用する
 # 複数指定する場合は次のように記述する
 # [["初版第第1刷の日付", "初版第第2刷の日付"], ["第2版第1刷の日付"]]
 # 日付の後ろを空白文字で区切り、任意の文字列を置くことも可能。
-history: [["2015-12-30 Android Studio 1.5.1 版発行"]]
+history: [["2016年01月04日  公開版発行"]]
 # 権利表記
 rights: |
-  本書の内容は 有山圭二 の著作物です。また、本書の表紙及び裏表紙のイラストは 根雪れい の著作物です。
-  本書の全部、または一部について、著作者から文書による許諾を得ずに複製することは禁じられています。
+  本文書は、有山圭二の著作物であり、クリエイティブコモンズ4.0の表示—非営利—改変禁止ライセンスの元で提供しています。
 
 # 以下はオプション(autと同じように配列書式で複数指定可能)。
 # adp: 異なるメディア向けに作り直した者
@@ -187,7 +187,7 @@ colophon: true
 # font_ext: ["ttf", "woff", "otf"]
 
 pubhistory: |
-  2015年12月31日  初版発行
+  2016年01月04日  公開版発行
 
 texstyle: reviewmacro
 debug: false

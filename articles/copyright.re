@@ -9,8 +9,9 @@
 会社名、製品名については、本文中では©、®、™マークなどは表示していません。
 
 == 著作権について
-本書は、有山圭二（@keiji_ariyama）の著作物です。また、本書の表紙及び裏表紙のイラストは根雪れい（@neyuki_rei）の著作物です。
-本書の全部、または一部について、著作者から文書による許諾を得ずに複製することは禁じられています。
+本文書は、有山圭二の著作物であり、クリエイティブコモンズ4.0の表示—非営利-改変禁止@<fn>{license}ライセンスの元で提供しています。
+
+//footnote[license][@<href>{http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ja}]
 
 == Creative Commons License
 
