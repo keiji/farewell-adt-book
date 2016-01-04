@@ -14,7 +14,7 @@
 ## ライセンス
 本文書は、有山圭二の著作物であり、[クリエイティブコモンズ4.0の表示—非営利—改変禁止ライセンス]の元で提供しています。
 
-[クリエイティブコモンズ4.0の表示—非営利-改変禁止ライセンス]: [http://creativecommons.org/licenses/by-nd/4.0/deed.ja](http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ja)
+[クリエイティブコモンズ4.0の表示—非営利—改変禁止ライセンス]: [http://creativecommons.org/licenses/by-nd/4.0/deed.ja](http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ja)
 
 ## 最新情報の提供
 本文書に関する最新情報は、
