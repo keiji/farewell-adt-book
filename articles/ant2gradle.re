@@ -86,14 +86,14 @@ android {
 「Gradle」タブで表示されるタスク一覧から@<tt>{assemble}を実行すると、すべてのflavorのビルドを一度に実行できます。
 @<tt>{assembleTrial}や@<tt>{assembleCommercial}のように、flavorを個別にビルドすることもできます。
 
-//image[as_gradle_tasks][タスク一覧][scale=0.4]{
+//image[as_gradle_tasks][タスク一覧][scale=0.5]{
 //}
 
 エミュレーターや実機で実行するflavorを選びたい場合、Android Studioの「Build Variants」タブ（@<img>{as_build_variants}）で切り替えることができます。
 
 「@<tt>{Build Variants}」とは、「Product Flavors」と、デバッグ版・リリース版を切り替える「Build Types」の2つの要素を組み合わせたものを言います。
 
-//image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.5]{
+//image[as_build_variants][Build Variants - Product FlavorとBuild Typeの組み合わせ][scale=0.6]{
 //}
 
 ビルドは、コマンドラインからも実行できます。
@@ -269,7 +269,7 @@ applicationIdSuffixを付加したときやapplicationIdそのものを変えた
 
 すると、applicationIdが違っていても、ContentProviderのauthoritiesが重複していると、アプリがインストールができないという問題が発生します。
 
-//image[install_failed_conflict_provider][INSTALL_FAILED_CONFLICTING_PROVIDER][scale=0.4]{
+//image[install_failed_conflict_provider][INSTALL_FAILED_CONFLICTING_PROVIDER][scale=0.5]{
 //}
 
 AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反映するには、@<tt>{Manifest Merger}を使います（@<list>{androidmanifest}）。

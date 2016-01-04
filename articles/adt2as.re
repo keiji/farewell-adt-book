@@ -7,7 +7,7 @@
 == ADTプロジェクトのインポート機能について
 Android Studioには、ADTのプロジェクト（ワークスペース）を自動でインポートする機能があります。
 
-//image[adt_import][Import Project(Eclipse ADT, Gradle etc.)][scale=0.25]{
+//image[adt_import][Import Project(Eclipse ADT, Gradle etc.)][scale=0.35]{
 //}
 
 しかし、これはADTのワークスペースを「とりあえず使えるようにする」だけのものです。
@@ -76,7 +76,7 @@ NDK	各プロジェクトのjniフォルダ
 プロジェクト一覧で右クリックして［Properties］をクリックすると、Project Propertiesが表示されます。
 左側メニューから［Android］を選択すると@<img>{adt_project_setting}の画面になります。
 
-//image[adt_project_setting][Project Build TargetとLibrary][scale=0.30]{
+//image[adt_project_setting][Project Build TargetとLibrary][scale=0.40]{
 //}
 
 確認が必要な情報は次の通りです。
@@ -149,7 +149,7 @@ NDK	なし
 ［Application name］と［Company Domain］をそれぞれ入力します。
 これらを組み合わせたものがデフォルトの［Package name］になります。
 
-//image[as_project_wizard1][][scale=0.25]{
+//image[as_project_wizard1][][scale=0.35]{
 //}
 
 この際［Company Domain］は自動的に逆順になります。
@@ -161,14 +161,14 @@ ADTのプロジェクトウィザードのように逆順で入力してしま�
 対応バージョンを選択します。ここで選択したAPI Levelが、@<tt>{minSdkVersion}になります。
 後から書き換えることもできますが、今回は先ほど確認した値「Android 4.0.3 (Ice Cream Sandwich)」を選択します。
 
-//image[as_project_wizard2][][scale=0.25]{
+//image[as_project_wizard2][][scale=0.35]{
 //}
 
 最後に、追加するActivityを選択する画面が表示されますが、今回はADTからの移行なのでActivityは必要ありません。
 
 ［Add no Activity］を選択して［Finish］をクリックすると、Android Studioはプロジェクトの生成を開始します。
 
-//image[as_project_wizard3][][scale=0.25]{
+//image[as_project_wizard3][][scale=0.35]{
 //}
 
 Android Studioでは、プロジェクトの生成時にはインターネット接続が必要となる場合があります。
@@ -190,7 +190,7 @@ Android Studioは、プロジェクトの作成直後には標準で「Android V
 
 作業を進めるにあたってまず、左上のメニューから「Project View」に切り替えてください。
 
-//image[project_view][［Project］を選択する。［Project Files］でないことに注意][scale=0.5]{
+//image[project_view][［Project］を選択する。［Project Files］でないことに注意][scale=0.6]{
 //}
 
 
@@ -203,7 +203,7 @@ ADTでは「library」として扱っていたプロジェクトを「モジュ�
 まず、モジュールの種類を選択します。ADTの「library」プロジェクトの場合は、［Android Library］を選択します
 （ADTのプロジェクトがアプリケーションなら、［Phone and Tablet］を選択します）。
 
-//image[create_module1][][scale=0.25]{
+//image[create_module1][][scale=0.35]{
 //}
 
 ［Application/Library name］を入力@<fn>{capital}し、次に対応バージョンを選択します。
@@ -212,7 +212,7 @@ ADTの「library」プロジェクトの場合は、「Android 2.2 (Froyo)」を
 
 //footnote[capital][［Application/Library name］は、先頭が大文字で入力することが推奨されていますが、ADTのプロジェクトに完全に合わせるなら小文字でも問題ありません]
 
-//image[create_module2][][scale=0.25]{
+//image[create_module2][][scale=0.35]{
 //}
 
 ［Finish］をクリックすると、Android Studioはモジュール「library」を生成します。
@@ -244,7 +244,7 @@ dependencies {
 Android Studioは、ビルドシステムに「Gradle」を採用しています。
 「build.gradle」はGradleのビルド設定をまとめたファイル（ビルドファイル）です。
 
-//indepimage[gradlephant][Gradlephant][scale=0.5]
+//indepimage[gradlephant][Gradlephant][scale=0.6]
 
 ADTでは、Eclipseとプラグインがビルドを実行して@<kw>{APK, Application PacKage}を生成しています。
 また、@<kw>{CI, Continuous Integration}を実施しようとすれば、@<tt>{android}コマンドを使ってAntのビルドファイル生成するのが一般的です。
@@ -479,7 +479,7 @@ Android StudioにNDKのパスを設定します。
 
 ［SDK Locations］の［Android NDK Location］に、NDKのパスを設定します。
 
-//image[ndk_setting][Android NDK Location][scale=0.25]{
+//image[ndk_setting][Android NDK Location][scale=0.35]{
 //}
 
 ==== ネイティブのソースコード
