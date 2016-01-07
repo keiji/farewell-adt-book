@@ -301,7 +301,7 @@ AndroidManifest.xmlに、@<tt>{build.gradle}で変更したapplicationIdを反�
 </manifest>
 //}
 
-@<tt>{{applicationId}}は、ビルド時にアプリのBiuld Variantsに設定されているapplicationIdで置き換えられます。
+@<tt>{${applicationId}}は、ビルド時にアプリのBiuld Variantsに設定されているapplicationIdで置き換えられます。
 
 そのほか、build.gradleとAndroidManifest.xmlとの連携については、次のURLを参照してください。
 
